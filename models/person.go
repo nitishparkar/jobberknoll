@@ -60,3 +60,23 @@ func FetchPeople() ([]Person, error) {
 		return []Person{}, errors.New("Unable to get database connection")
 	}
 }
+
+func FetchPerson(id int) (Person, error) {
+	db, err := getDbConnection()
+
+	if err == nil {
+		defer db.Close()
+
+		person := Person{}
+		row := db.QueryRow("SELECT * FROM people WHERE id = $1", id)
+		err := row.Scan(&person.id, &person.name, &person.bio)
+
+		if err == nil {
+			return person, nil
+		} else {
+			return person, errors.New("Unable to find person")
+		}
+	} else {
+		return Person{}, errors.New("Unable to get database connection")
+	}
+}

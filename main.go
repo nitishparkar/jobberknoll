@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"github.com/nitishparkar/jobberknoll/controllers"
 	"net/http"
 	"os"
@@ -8,7 +9,9 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	router := mux.NewRouter()
+
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))
 	})
 
@@ -16,8 +19,13 @@ func main() {
 
 	pc := new(controllers.PeopleController)
 	pc.Template = templates.Lookup("index.html")
-	http.HandleFunc("/people", pc.Index)
+	router.HandleFunc("/people", pc.Index)
 
+	personController := new(controllers.PersonController)
+	personController.Template = templates.Lookup("show.html")
+	router.HandleFunc("/people/{id}", personController.Show)
+
+	http.Handle("/", router)
 	http.ListenAndServe(":9090", nil)
 }
 
