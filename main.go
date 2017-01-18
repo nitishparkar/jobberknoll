@@ -21,6 +21,11 @@ func main() {
 	pc.Template = templates.Lookup("index.html")
 	router.HandleFunc("/people", pc.Index)
 
+	npc := new(controllers.NewPersonController)
+	npc.Template = templates.Lookup("new.html")
+	router.HandleFunc("/people/new", npc.New)
+	router.HandleFunc("/people/create", npc.Create)
+
 	personController := new(controllers.PersonController)
 	personController.Template = templates.Lookup("show.html")
 	router.HandleFunc("/people/{id}", personController.Show)

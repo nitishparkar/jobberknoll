@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Person</title>
+</head>
+<body>
+    <form action="/people/create" method="post">
+        <label>
+            Name:
+            <input type="text" name="name" value="{{ .Name }}">
+        </label>
+        <label>
+            Bio:
+            <input type="text" name="bio" value="{{ .Bio }}">
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

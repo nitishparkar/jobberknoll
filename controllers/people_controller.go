@@ -49,3 +49,27 @@ func (this *PersonController) Show(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(http.StatusText(404)))
 	}
 }
+
+type NewPersonController struct {
+	Template *template.Template
+}
+
+func (this *NewPersonController) New(w http.ResponseWriter, r *http.Request) {
+	person := models.Person{}
+	w.Header().Add("Content-Type", "text/html")
+	this.Template.Execute(w, &person)
+}
+
+func (this *NewPersonController) Create(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("name")
+	bio := r.FormValue("bio")
+
+	person, err := models.SavePerson(name, bio)
+
+	if err == nil {
+		http.Redirect(w, r, "/people/" + strconv.Itoa(person.Id()), 302)
+	} else {
+		w.Header().Add("Content-Type", "text/html")
+		this.Template.Execute(w, person)
+	}
+}
