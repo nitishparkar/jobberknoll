@@ -30,6 +30,11 @@ func main() {
 	personController.Template = templates.Lookup("show.html")
 	router.HandleFunc("/people/{id}", personController.Show)
 
+	epc := new(controllers.NewPersonController)
+	epc.Template = templates.Lookup("edit.html")
+	router.HandleFunc("/people/{id}/edit", epc.Edit)
+	router.HandleFunc("/people/{id}/update", epc.Update)
+
 	http.Handle("/", router)
 	http.ListenAndServe(":9090", nil)
 }

@@ -109,3 +109,24 @@ func SavePerson(name string, bio string) (Person, error) {
 		return Person{}, errors.New("Unable to get database connection")
 	}
 }
+
+func UpdatePerson(person Person, name string, bio string) (Person, error) {
+	db, err := getDbConnection()
+
+	if err == nil {
+		defer db.Close()
+
+		person.SetName(name)
+		person.SetBio(bio)
+
+		_, err := db.Exec("UPDATE people SET name= $2, bio= $3 WHERE ID = $1", person.Id(), name, bio)
+
+		if err == nil {
+			return person, nil
+		} else {
+			return person, errors.New("Unable to update record")
+		}
+	} else {
+		return person, errors.New("Unable to get database connection")
+	}
+}
