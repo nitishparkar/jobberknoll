@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {{ template "_head.html" }}
 <body>
-  <h1>{{ .Name }}</h1>
-  <p>{{ .Bio }}</p>
-  <a href="/people/{{ .Id }}/edit">Edit</a> | <a href="/people">Index</a>
+  {{ template "_nav.html" }}
+  <div class="container">
+    <h1>{{ .Name }}</h1>
+    <p>{{ .Bio }}</p>
+    <a href="/people/{{ .Id }}/edit" class="btn btn-default" role="button">Edit details</a>
+    <a href="/people" class="btn btn-default" role="button">Go back to the list</a>
+  </div>
 </body>
 </html>

@@ -2,12 +2,17 @@
 <html lang="en">
 {{ template "_head.html" }}
 <body>
-  {{ range . }}
-  <div>
-    <a href="people/{{ .Id }}">{{ .Name }}</a>
-  </div>
-  {{ end }}
-  <br/>
-  <a href="/people/new">New</a>
+    {{ template "_nav.html" }}
+    <div class="container">
+        <ul>
+            {{ range . }}
+                <li>
+                    <a href="people/{{ .Id }}">{{ .Name }}</a>
+                </li>
+            {{ end }}
+        </ul>
+        <br/>
+        <a href="/people/new" class="btn btn-primary" role="button">Add New Person</a>
+    </div>
 </body>
 </html>
