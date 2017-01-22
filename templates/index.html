@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>People!</title>
-</head>
+<html lang="en">
+{{ template "_head.html" }}
 <body>
   {{ range . }}
-    <div>
-      <a href="people/{{ .Id }}">{{ .Name }}</a>
-    </div>
+  <div>
+    <a href="people/{{ .Id }}">{{ .Name }}</a>
+  </div>
   {{ end }}
   <br/>
   <a href="/people/new">New</a>

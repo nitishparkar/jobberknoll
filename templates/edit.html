@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Edit Person</title>
-</head>
+{{ template "_head.html" }}
 <body>
 <form action="/people/{{ .Id }}/update" method="patch">
     <label>
