@@ -1,18 +1,25 @@
-// CREATE TABLE people (
-//    id serial PRIMARY KEY NOT NULL,
-//    name varchar(255),
-//    bio text
-// );
-
 package models
 
 import (
+	"github.com/jinzhu/gorm"
 	"errors"
 )
 
+func RunMigrations() {
+	db, err := getDbConnection()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer db.Close()
+	db.AutoMigrate(&Person{})
+}
+
 type Person struct {
-	Id   int
-	Name string
+	gorm.Model
+
+	Name string	`gorm:"not null"`
 	Bio  string
 }
 

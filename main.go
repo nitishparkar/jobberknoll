@@ -6,10 +6,13 @@ import (
 	"net/http"
 	"os"
 	"text/template"
+	"github.com/nitishparkar/jobberknoll/models"
 )
 
 func main() {
 	router := mux.NewRouter()
+
+	models.RunMigrations()
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))

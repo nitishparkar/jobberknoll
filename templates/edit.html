@@ -5,7 +5,7 @@
     {{ template "_nav.html" }}
 
     <div class="container">
-        <form class="form-horizontal" action="/people/{{ .Id }}/update" method="patch">
+        <form class="form-horizontal" action="/people/{{ .ID }}/update" method="patch">
             <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
@@ -21,7 +21,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="/people/{{ .Id }}" class="btn btn-default" role="button">Cancel</a>
+                    <a href="/people/{{ .ID }}" class="btn btn-default" role="button">Cancel</a>
                 </div>
             </div>
         </form>

@@ -37,7 +37,7 @@ func (this *PersonController) Show(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		person, err := models.FetchPerson(id)
 
-		if err == nil && person.Id != 0 {
+		if err == nil && person.ID != 0 {
 			w.Header().Add("Content-Type", "text/html")
 			this.Template.Execute(w, &person)
 		} else {
@@ -67,7 +67,7 @@ func (this *NewPersonController) Create(w http.ResponseWriter, r *http.Request) 
 	person, err := models.SavePerson(name, bio)
 
 	if err == nil {
-		http.Redirect(w, r, "/people/" + strconv.Itoa(person.Id), 302)
+		http.Redirect(w, r, "/people/" + strconv.FormatUint(uint64(person.ID), 10), 302)
 	} else {
 		w.Header().Add("Content-Type", "text/html")
 		this.Template.Execute(w, person)
@@ -83,7 +83,7 @@ func (this *NewPersonController) Edit(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		person, err := models.FetchPerson(id)
 
-		if err == nil && person.Id != 0 {
+		if err == nil && person.ID != 0 {
 			w.Header().Add("Content-Type", "text/html")
 			this.Template.Execute(w, &person)
 		} else {
@@ -105,13 +105,13 @@ func (this *NewPersonController) Update(w http.ResponseWriter, r *http.Request) 
 	if err == nil {
 		person, err := models.FetchPerson(id)
 
-		if err == nil && person.Id != 0 {
+		if err == nil && person.ID != 0 {
 			name := r.FormValue("name")
 			bio := r.FormValue("bio")
 
 			person, err := models.UpdatePerson(person, name, bio)
 			if err == nil {
-				http.Redirect(w, r, "/people/" + strconv.Itoa(person.Id), 302)
+				http.Redirect(w, r, "/people/" + strconv.FormatUint(uint64(person.ID), 10), 302)
 			} else {
 				w.Header().Add("Content-Type", "text/html")
 				this.Template.Execute(w, &person)
