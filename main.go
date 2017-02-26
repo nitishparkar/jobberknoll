@@ -9,6 +9,8 @@ import (
 	"github.com/nitishparkar/jobberknoll/models"
 )
 
+var port = ":9090"
+
 func main() {
 	router := mux.NewRouter()
 
@@ -39,7 +41,10 @@ func main() {
 	router.HandleFunc("/people/{id}/update", epc.Update)
 
 	http.Handle("/", router)
-	http.ListenAndServe(":9090", nil)
+
+	println("Starting web server at port", port)
+	http.ListenAndServe(port, nil)
+	println("Web server stopped")
 }
 
 func populateTemplates() *template.Template {
