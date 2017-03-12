@@ -72,7 +72,11 @@ func populateTemplates() *template.Template {
 		}
 	}
 
-	result.ParseFiles(*templatePaths...)
+	_, err := result.ParseFiles(*templatePaths...)
+
+	if err != nil {
+		panic(err)
+	}
 
 	return result
 }
