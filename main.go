@@ -11,10 +11,19 @@ import (
 
 var port = ":9090"
 
-func main() {
-	router := mux.NewRouter()
+func init() {
+	err := models.ConnectToDb()
+	if err != nil {
+		panic(err)
+	}
 
-	models.RunMigrations()
+	models.MigrateDb()
+}
+
+func main() {
+	defer models.CloseDbConnection()
+
+	router := mux.NewRouter()
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))

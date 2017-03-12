@@ -6,8 +6,22 @@ import (
 	"os"
 )
 
-func getDbConnection() (*gorm.DB, error) {
-	db, err := gorm.Open("postgres", os.Getenv("JOBBERKNOLL_DB_URL"))
+var dbConnection *gorm.DB
 
-	return db, err
+func ConnectToDb() (err error) {
+	dbConnection, err = gorm.Open("postgres", os.Getenv("JOBBERKNOLL_DB_URL"))
+	dbConnection.LogMode(true)
+	return
+}
+
+func GetDbConnection() *gorm.DB {
+	return dbConnection
+}
+
+func CloseDbConnection() error {
+	return dbConnection.Close()
+}
+
+func MigrateDb() {
+	dbConnection.AutoMigrate(&Person{})
 }
