@@ -27,7 +27,7 @@ func FetchPerson(id int) (Person, error) {
 	db := GetDbConnection()
 
 	person := Person{}
-	db.First(&person, id)
+	db.Preload("Interactions", OrderInteractionDateDesc).First(&person, id)
 
 	return person, nil
 }
