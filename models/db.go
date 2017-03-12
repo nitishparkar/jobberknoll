@@ -24,4 +24,6 @@ func CloseDbConnection() error {
 
 func MigrateDb() {
 	dbConnection.AutoMigrate(&Person{})
+	dbConnection.AutoMigrate(&Interaction{})
+	dbConnection.Model(&Interaction{}).AddIndex("idx_interactions_person_id", "person_id")
 }

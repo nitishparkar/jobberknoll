@@ -10,6 +10,8 @@ type Person struct {
 
 	Name string `gorm:"not null"`
 	Bio  string
+
+	Interactions []Interaction
 }
 
 func FetchPeople() ([]Person, error) {
