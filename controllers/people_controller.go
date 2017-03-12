@@ -67,7 +67,7 @@ func (this *NewPersonController) Create(w http.ResponseWriter, r *http.Request) 
 	person, err := models.SavePerson(name, bio)
 
 	if err == nil {
-		http.Redirect(w, r, "/people/" + strconv.FormatUint(uint64(person.ID), 10), 302)
+		http.Redirect(w, r, "/people/"+strconv.FormatUint(uint64(person.ID), 10), 302)
 	} else {
 		w.Header().Add("Content-Type", "text/html")
 		this.Template.Execute(w, person)
@@ -111,7 +111,7 @@ func (this *NewPersonController) Update(w http.ResponseWriter, r *http.Request) 
 
 			person, err := models.UpdatePerson(person, name, bio)
 			if err == nil {
-				http.Redirect(w, r, "/people/" + strconv.FormatUint(uint64(person.ID), 10), 302)
+				http.Redirect(w, r, "/people/"+strconv.FormatUint(uint64(person.ID), 10), 302)
 			} else {
 				w.Header().Add("Content-Type", "text/html")
 				this.Template.Execute(w, &person)

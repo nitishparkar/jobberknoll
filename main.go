@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"github.com/nitishparkar/jobberknoll/controllers"
+	"github.com/nitishparkar/jobberknoll/models"
 	"net/http"
 	"os"
 	"text/template"
-	"github.com/nitishparkar/jobberknoll/models"
 )
 
 var port = ":9090"
