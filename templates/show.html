@@ -8,6 +8,7 @@
         <p>{{ .Bio }}</p>
         <a href="/people/{{ .ID }}/edit" class="btn btn-default" role="button">Edit details</a>
         <a href="/people" class="btn btn-default" role="button">Go back to the list</a>
+        <a href="/people/{{ .ID }}/interactions/new" class="btn btn-default" role="button">New interaction</a>
 
         <br/><br/>
 
@@ -16,7 +17,7 @@
                 <div class="panel-body">
                     {{ .Details }}
                 </div>
-                <div class="panel-footer">{{ .FormattedDate }}</div>
+                <div class="panel-footer">{{ .Type }} on {{ .FormattedDate }}</div>
             </div>
         {{ end }}
   </div>

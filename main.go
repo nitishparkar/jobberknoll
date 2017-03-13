@@ -49,6 +49,12 @@ func main() {
 	router.HandleFunc("/people/{id}/edit", epc.Edit)
 	router.HandleFunc("/people/{id}/update", epc.Update)
 
+	interactionsController := new(controllers.NewInteractionController)
+	interactionsController.Template = templates.Lookup("new_interaction.html")
+	router.HandleFunc("/people/{personId}/interactions/new", interactionsController.New)
+	router.HandleFunc("/people/{personId}/interactions/create", interactionsController.Create)
+
+
 	http.Handle("/", router)
 
 	println("Starting web server at port", port)

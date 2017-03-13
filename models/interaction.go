@@ -4,14 +4,15 @@ import (
 	"github.com/jinzhu/gorm"
 	"time"
 	"database/sql/driver"
+	"errors"
 )
 
 type interactionType string
 
 const (
-	call interactionType = "call"
-	text interactionType = "text"
-	meet interactionType = "meet"
+	CallInteraction interactionType = "call"
+	TextInteraction interactionType = "text"
+	MeetInteraction interactionType = "meet"
 )
 
 // Was getting this error,
@@ -27,7 +28,7 @@ type Interaction struct {
 	Date time.Time `gorm:"not null"`
 	Type interactionType `gorm:"type:varchar(20);not null"`
 	Details string `gorm:"not null"`
-	PersonID int `gorm:"not null"`
+	PersonID uint `gorm:"not null"`
 
 	Person Person
 }
@@ -38,7 +39,37 @@ func (self *Interaction) FormattedDate() string {
 	return self.Date.Format("02 Jan, 2006")
 }
 
+func (self *Interaction) FormDate() string {
+	return self.Date.Format("02/01/2006")
+}
+
 // Scopes
 func OrderInteractionDateDesc(db *gorm.DB) *gorm.DB {
 	return db.Order("date desc")
+}
+
+
+func SaveInteraction(personId uint, rawIntDate string, intType string, intDetails string) (Interaction, error) {
+	db := GetDbConnection()
+
+	intDate, err := time.Parse("02/01/2006", rawIntDate)
+
+	interaction := Interaction{
+		Date: intDate,
+		Type: interactionType(intType),
+		Details: intDetails,
+		PersonID: personId,
+	}
+
+	if err != nil {
+		return interaction, errors.New("Unable to parse interaction date")
+	}
+
+	db.Create(&interaction)
+
+	if db.NewRecord(interaction) {
+		return interaction, errors.New("Unable to save interaction")
+	}
+
+	return interaction, nil
 }
