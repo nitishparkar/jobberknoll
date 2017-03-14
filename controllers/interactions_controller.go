@@ -69,3 +69,20 @@ func (self *NewInteractionController) Create(w http.ResponseWriter, r *http.Requ
 		w.Write([]byte(http.StatusText(404)))
 	}
 }
+
+func (self *NewInteractionController) Delete(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	rawId := vars["id"]
+
+	id, err := strconv.Atoi(rawId)
+
+	if err != nil {
+		w.WriteHeader(404)
+		w.Write([]byte(http.StatusText(404)))
+		return
+	}
+
+	models.DeleteInteraction(id)
+
+	http.Redirect(w, r, "/people/" + vars["personId"], 302)
+}

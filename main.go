@@ -53,7 +53,7 @@ func main() {
 	interactionsController.Template = templates.Lookup("new_interaction.html")
 	router.HandleFunc("/people/{personId}/interactions/new", interactionsController.New)
 	router.HandleFunc("/people/{personId}/interactions/create", interactionsController.Create)
-
+	router.HandleFunc("/people/{personId}/interactions/{id}/delete", interactionsController.Delete)
 
 	http.Handle("/", router)
 

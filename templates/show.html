@@ -3,17 +3,21 @@
 {{ template "_head.html" }}
 <body>
     {{ template "_nav.html" }}
+    {{ $personId := .ID }}
     <div class="container">
         <h1>{{ .Name }}</h1>
         <p>{{ .Bio }}</p>
-        <a href="/people/{{ .ID }}/edit" class="btn btn-default" role="button">Edit details</a>
+        <a href="/people/{{ $personId }}/edit" class="btn btn-default" role="button">Edit details</a>
         <a href="/people" class="btn btn-default" role="button">Go back to the list</a>
-        <a href="/people/{{ .ID }}/interactions/new" class="btn btn-default" role="button">New interaction</a>
+        <a href="/people/{{ $personId }}/interactions/new" class="btn btn-default" role="button">New interaction</a>
 
         <br/><br/>
 
         {{ range .Interactions }}
             <div class="panel panel-default">
+                <a href="/people/{{ $personId }}/interactions/{{ .ID }}/delete" onclick="return confirm('Are you sure ?')">
+                    <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                </a>
                 <div class="panel-body">
                     {{ .Details }}
                 </div>

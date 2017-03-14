@@ -73,3 +73,13 @@ func SaveInteraction(personId uint, rawIntDate string, intType string, intDetail
 
 	return interaction, nil
 }
+
+func DeleteInteraction(id int) (Interaction, error) {
+	db := GetDbConnection()
+
+	interaction := Interaction{}
+	db.Delete(&interaction, id)
+
+	return interaction, nil
+}
+
