@@ -6,10 +6,11 @@ import (
 	"github.com/nitishparkar/jobberknoll/models"
 	"net/http"
 	"os"
+	"fmt"
 	"text/template"
 )
 
-var port = ":9090"
+var port = fmt.Sprintf(":%s", os.Getenv("PORT"))
 
 func init() {
 	err := models.ConnectToDb()
